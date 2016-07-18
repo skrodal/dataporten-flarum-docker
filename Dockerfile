@@ -75,13 +75,14 @@ RUN chmod -R 775 /app/storage
 RUN chmod -R 775 /app/assets
 RUN chown -R root:www-data /app
 
+
 # ------------------
 # NGINX
 # ------------------
 
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-COPY etc/nginx-site.conf /etc/nginx/sites-available/default
 COPY etc/supervisord.conf /etc
+COPY etc/nginx-site.conf /etc/nginx/sites-available/default
 
 EXPOSE 80
 
