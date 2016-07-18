@@ -29,14 +29,6 @@ RUN /usr/bin/easy_install supervisor
 RUN /usr/bin/easy_install supervisor-stdout
 
 # ------------------
-# NGINX
-# ------------------
-
-RUN echo "daemon off;" >> /etc/nginx/nginx.conf
-COPY etc/nginx-site.conf /etc/nginx/sites-available/default
-COPY etc/supervisord.conf /etc
-
-# ------------------
 # SERVICES
 # ------------------
 
@@ -82,6 +74,14 @@ RUN chmod 775 /app
 RUN chmod -R 775 /app/storage
 RUN chmod -R 775 /app/assets
 RUN chown -R root:www-data /app
+
+# ------------------
+# NGINX
+# ------------------
+
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+COPY etc/nginx-site.conf /etc/nginx/sites-available/default
+COPY etc/supervisord.conf /etc
 
 EXPOSE 80
 

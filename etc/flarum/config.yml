@@ -2,7 +2,7 @@ baseUrl : "https://domain/path_to_flarum/"
 databaseConfiguration :
     host                  : "localhost"
     database              : "flarum_database_name"
-    prefix                : "flarum_table_name_prefix_"
+    prefix                : "flarum_"
     username              : "username"
     password              : "password"
 adminUser : 
