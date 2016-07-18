@@ -45,14 +45,14 @@ settings :
 
 ## Build
 
-> docker build -t uninettno/flarum-docker-dataporten .
+> docker build -t uninettno/dataporten-flarum-docker .
 
 
 ## Run
 
 On port 80:
 
-	> docker run -d -p 80:80 --name flarum uninettno/flarum-docker
+	> docker run -d -p 80:80 --name flarum uninettno/dataporten-flarum-docker
 
 Remeber to disable any web-servers running on host (to free port 80).
 
