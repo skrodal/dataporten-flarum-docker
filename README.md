@@ -7,7 +7,11 @@ Adapted to higher education in Norway, which includes an extension for authentic
 
 Built to work with Flarum `v0.1.0-beta.5`.
 
-## etc/flarum/config.yml
+## Install
+
+As you will need to populate a Flarum configuration file before build, first clone this repository.
+
+### 1. etc/flarum/config.yml
 
 Populate Flarum's config-file used for command-line install, which will be used by Docker build. 
 
@@ -43,30 +47,34 @@ settings :
     theme_secondary_color : "#010777"
 ```
 
-## Build
+### 2. Build
+
+Run the following from the directory in which you cloned the repo:
 
 > docker build -t uninettno/dataporten-flarum-docker .
 
 
-## Run
+## After Build
+
+### Run
 
 On port 80:
 
 	> docker run -d -p 80:80 --name flarum uninettno/dataporten-flarum-docker
 
-Remeber to disable any web-servers running on host (to free port 80).
+Remember to disable any web-servers running on host (to free port 80).
 
-## Enable Dataporten
+### Enable Dataporten
 
 Log on to Flarum with the `adminUser` credentials (set in config.yml) and enable Dataporten extension in Flarum's Admin UI.
 
 More info about Dataporten in the [Dataporten extension readme on GitHub](https://github.com/skrodal/flarum-ext-auth-dataporten).
 
-## Debug
+### Debug
 
 	> docker exec -ti flarum bash
 
-## Stop
+### Stop
 	
 	> docker stop flarum && docker rm flarum
 

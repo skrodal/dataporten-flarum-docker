@@ -66,7 +66,7 @@ COPY etc/flarum/Server.php vendor/flarum/core/src/Console
 COPY etc/flarum/config.yml .
 
 # Installation
-RUN php flarum install -f flarum-config.yml
+RUN php flarum install -f config.yml
 
 # Delete Flarum config
 RUN rm config.yml
