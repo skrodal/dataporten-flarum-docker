@@ -15,7 +15,7 @@ As you will need to populate a Flarum configuration file before build, first clo
 
 Populate Flarum's config-file used for command-line install, which will be used by Docker build. 
 
-The config file will attempt to enable the Dataporten (and 3rd party language) extension. You will therefore need to register your client with Dataporten and populate this config file **prior** to running the Docker build.
+If you have already registered your client with Dataporten, you may enter its ID/Secret in the config file. Otherwise, you may set it manually in Flarum's Admin UI after the build/run.
 
 
 ```
@@ -36,12 +36,10 @@ settings :
     forum_title           : "Dataporten Test Forum"
     welcome_title         : "Velkommen til Dataporten Test Forum"
     welcome_message       : "Bare for testing :)"
-    uninett-auth-dataporten.client_id     : "___ENTER____"
-    uninett-auth-dataporten.client_secret : "___ENTER____"
+    uninett-auth-dataporten.client_id     : "___optional___"
+    uninett-auth-dataporten.client_secret : "___optional____"
     mail_from             : "noreply@dataporten.dev"
     default_locale        : "no"
-    extensions_enabled    : "uninett-auth-dataporten"
-    extensions_enabled    : "pladask-norwegian-bokmal"
     theme_colored_header  : 1
     theme_primary_color   : "#ed1b34"
     theme_secondary_color : "#010777"
