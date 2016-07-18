@@ -76,7 +76,7 @@ Log on to Flarum with the `adminUser` credentials (set in config.yml) and enable
 a) If you already entered the client's ID/Secret in the install-config, the extension will now work.
 b) otherwise, use the extenstions `settings` button and enter ID/Secret manually.
 
-The Redirect URI for your Dataporten client should look like this: *https://domain.no/[path_to_flarum]`/auth/dataporten`*
+*Add `/auth/dataporten` at the end of your Dataporten client's Redirect URI.*
 
 More info about Dataporten in the [Dataporten extension readme on GitHub](https://github.com/skrodal/flarum-ext-auth-dataporten).
 
