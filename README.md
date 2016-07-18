@@ -1,11 +1,16 @@
 
-** 1st release -- do not use! **
+Note: Built to work with Flarum `v0.1.0-beta.5`.
 
-# Flarum
+# Flarum & Dataporten Docker Image
 
-Adapted to higher education in Norway, which includes an extension for authentication via Dataporten.
+This image features PHP/Nginx/Flarum, with:
 
-Built to work with Flarum `v0.1.0-beta.5`.
+- The [Dataporten extension] (https://github.com/skrodal/flarum-ext-auth-dataporten), which allows users to login using Dataporten from UNINETT
+- Command-line installation with YAML config file (see below) 
+- Uses an external DB (making Flarum content persistent) 
+- No need to create DB ahead of time (the config file takes care of that)
+
+Although the image is adapted to suit higher education in Norway, the workflow (and Dataporten OAuth extension) may be useful to others wanting to create something similar.
 
 ## Install
 
@@ -51,20 +56,25 @@ Run the following from the directory in which you cloned the repo:
 
 > docker build -t uninettno/dataporten-flarum-docker .
 
+* The config file will be copied into the container, used by Flarum installation, then deleted again.
+
 
 ## After Build
 
 ### Run
 
-On port 80:
+E.g. on port 80, like this:
 
 	> docker run -d -p 80:80 --name flarum uninettno/dataporten-flarum-docker
 
-Remember to disable any web-servers running on host (to free port 80).
+* Remember to disable any web-servers running on host (to free port 80, if that's what you're using).
 
 ### Enable Dataporten
 
 Log on to Flarum with the `adminUser` credentials (set in config.yml) and enable Dataporten extension in Flarum's Admin UI.
+
+a) If you already entered the client's ID/Secret in the install-config, the extension will now work.
+b) otherwise, use the extenstions `settings` button and enter ID/Secret manually.
 
 More info about Dataporten in the [Dataporten extension readme on GitHub](https://github.com/skrodal/flarum-ext-auth-dataporten).
 
@@ -78,4 +88,9 @@ More info about Dataporten in the [Dataporten extension readme on GitHub](https:
 
 ## Issues/todo
 
-Avatars (profile photo) will be lost on Docker restart (as it is downloaded and saved locally within the image). Using external image links [is not supported by Flarum](https://discuss.flarum.org/d/3041-upload-avatar-to-imgur)
+
+**Avatars** 
+
+Avatars (profile photo) are stored locally (in the container) and will thus be lost on Docker restart (as it is downloaded and saved locally within the image). 
+
+Using external image links, to make avatars persistent, [is not supported by Flarum](https://discuss.flarum.org/d/3041-upload-avatar-to-imgur) (yet). 
