@@ -6,22 +6,24 @@ Note: Built to work with Flarum `v0.1.0-beta.5`.
 This image features PHP/Nginx/Flarum, with:
 
 - The [Dataporten extension] (https://github.com/skrodal/flarum-ext-auth-dataporten), which allows users to login using Dataporten from UNINETT
-- Command-line installation with YAML config file (see below) 
+- Command-line installation of Flarum with YAML config file (see below) 
 - Uses an external DB (making Flarum content persistent) 
 - No need to create DB ahead of time (the config file takes care of that)
 
 Although the image is adapted to suit higher education in Norway, the workflow (and Dataporten OAuth extension) may be useful to others wanting to create something similar.
 
-## Install
+## Installation
 
-As you will need to populate a Flarum configuration file before build, first clone this repository.
+Follow the steps below to install and configure the Flarum Docker Image:
 
-### 1. etc/flarum/config.yml
 
-Populate Flarum's config-file used for command-line install, which will be used by Docker build. 
+### 1. Clone repository
 
-If you have already registered your client with Dataporten, you may enter its ID/Secret in the config file. Otherwise, you may set it manually in Flarum's Admin UI after the build/run.
+    git clone https://github.com/skrodal/dataporten-flarum-docker.git
 
+### 2. Edit install config
+
+After clone, you will find the config file here `dataporten-flarum-docker/etc/flarum/config.yml`. It looks something like this:
 
 ```
 baseUrl : "http://127.0.0.1/path_to_flarum/"
@@ -50,43 +52,54 @@ settings :
     theme_secondary_color : "#010777"
 ```
 
-### 2. Build
+- This Docker Image is created to use an external Database for Flarum. Edit the config file's `databaseConfiguration` section according to your setup.
 
-Run the following from the directory in which you cloned the repo:
+- The section `adminUser` defines Flarum's administrator account.
 
-> docker build -t uninettno/dataporten-flarum-docker .
+- Use section `settings` to change some of Flarum's defaults. Here, you may also enter your client's `Dataporten` OAuth ID and Secret (if you have already registered your client with Dataporten).
 
-* The config file will be copied into the container, used by Flarum installation, then deleted again.
+### 3. Build the Docker image
 
+Make sure your working directory is the root of the cloned repository and run:
 
-## After Build
+    docker build -t uninettno/dataporten-flarum-docker .
 
-### Run
+_The config file will be copied into the container, used by Flarum installation, then deleted again._
 
-E.g. on port 80, like this:
+...the build will take a while, but when finished you should have a working image. If not (e.g. problems connecting to DB), observe any error messages from the build, address these (e.g. update your config file) and re-run the above build command.
 
-	> docker run -d -p 80:80 --name flarum uninettno/dataporten-flarum-docker
+### 4. Run/debug/stop the image
 
-* Remember to disable any web-servers running on host (to free port 80, if that's what you're using).
+Run the container on port 80, like this:
 
-### Enable Dataporten
+    docker run -d -p 80:80 --name flarum uninettno/dataporten-flarum-docker
 
-Log on to Flarum with the `adminUser` credentials (set in config.yml) and enable Dataporten extension in Flarum's Admin UI.
+_Remember to disable any web-servers running on host (to free port 80, if that's what you're using)._
 
-a) If you already entered the client's ID/Secret in the install-config, the extension will now work.
-b) otherwise, use the extenstions `settings` button and enter ID/Secret manually.
+Enter the running container:
+    
+    docker exec -ti flarum bash
 
-*Add `/auth/dataporten` at the end of your Dataporten client's Redirect URI.*
+Stop the container:
+    
+    docker stop flarum && docker rm flarum
+
+### 5. Go to your site!
+
+Go to the URL of your Flarum installation and log in as admin with the `adminUser` credentials you set in the config file, then:
+
+- Menu `Admin->Administration`
+- Page `Extensions`
+- Enable extension Dataporten (and optionally Norwegian translation extension)
+    - Double-check that the Client ID and Client Secret are entered in the extension's Settings
+- Log out and back in again - notice that Dataporten Login now is an option in the login window :)
+
+#### Dataporten-Specific
+
+The redirect URI for your client should be the URI to your Flarum site, plus `/auth/dataporten`.
 
 More info about Dataporten in the [Dataporten extension readme on GitHub](https://github.com/skrodal/flarum-ext-auth-dataporten).
 
-### Debug
-
-	> docker exec -ti flarum bash
-
-### Stop
-	
-	> docker stop flarum && docker rm flarum
 
 ## Issues/todo
 
