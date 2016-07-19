@@ -70,7 +70,7 @@ _The config file will be copied into the image, then used by Flarum's installati
 
 ### 4. Run/debug/stop the image
 
-Run the container on port 80, like this:
+Run the _image_ on port 80 (alt. choose your own port), like this:
 
     docker run -d -p 80:80 --name flarum uninettno/dataporten-flarum-docker
 
@@ -80,9 +80,13 @@ Enter the running container:
     
     docker exec -ti flarum bash
 
-Stop the container:
+Stop [and remove] the container:
     
-    docker stop flarum && docker rm flarum
+    docker stop flarum [&& docker rm flarum]
+
+Start a stopped container named 'flarum':
+    
+    docker start flarum
 
 ### 5. Go to your site!
 
@@ -106,7 +110,7 @@ More info about Dataporten in the [Dataporten extension readme on GitHub](https:
 
 **Uploaded content (e.g. avatars)** 
 
-The Dataporten extension automatically adds the profile photo ('avatar') upon first auth/signup. Flarum downloads any added media and stores it locally, meaning that this type of data is not persitent (i.e. lost on a Docker restart). 
+The Dataporten extension automatically adds the profile photo ('avatar') upon first auth/signup. Flarum downloads any added media and stores it locally, meaning that this type of data is not persitent (i.e. lost on a Docker image update). 
 
 - Using external image links, i.e. to make avatars persistent, [is not supported by Flarum](https://discuss.flarum.org/d/3041-upload-avatar-to-imgur) (yet). 
 - As a workaround, you can use a Docker Volume/Data Container to achieve persistency.
