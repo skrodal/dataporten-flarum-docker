@@ -64,7 +64,7 @@ Make sure your working directory is the root of the cloned repository and run:
 
     docker build -t uninettno/dataporten-flarum-docker .
 
-_The config file will be copied into the container, used by Flarum installation, then deleted again._
+_The config file will be copied into the image, then used by Flarum's installation script and then deleted._
 
 ...the build will take a while, but when finished you should have a working image. If not (e.g. problems connecting to DB), observe any error messages from the build, address these (e.g. update your config file) and re-run the above build command.
 
@@ -104,8 +104,9 @@ More info about Dataporten in the [Dataporten extension readme on GitHub](https:
 ## Issues/todo
 
 
-**Avatars** 
+**Uploaded content (e.g. avatars)** 
 
-Avatars (profile photo) are stored locally (in the container) and will thus be lost on Docker restart (as it is downloaded and saved locally within the image). 
+The Dataporten extension automatically adds the profile photo ('avatar') upon first auth/signup. Flarum downloads any added media and stores it locally, meaning that this type of data is not persitent (i.e. lost on a Docker restart). 
 
-Using external image links, to make avatars persistent, [is not supported by Flarum](https://discuss.flarum.org/d/3041-upload-avatar-to-imgur) (yet). 
+- Using external image links, i.e. to make avatars persistent, [is not supported by Flarum](https://discuss.flarum.org/d/3041-upload-avatar-to-imgur) (yet). 
+- As a workaround, you can use a Docker Volume/Data Container to achieve persistency.
