@@ -1,5 +1,5 @@
 
-*An updated (and slightly different take on this) repo exists here: [https://github.com/skrodal/uninettno-dataporten-flarum](uninettno-dataporten-flarum)*
+*An updated (and slightly different take on this) repo exists here: [uninettno-dataporten-flarum](https://github.com/skrodal/uninettno-dataporten-flarum)*
 
 
 Note: Built to work with Flarum `v0.1.0-beta.5`.
