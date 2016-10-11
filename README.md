@@ -1,4 +1,7 @@
 
+*An updated (and slightly different take on this) repo exists here: [https://github.com/skrodal/uninettno-dataporten-flarum](uninettno-dataporten-flarum)*
+
+
 Note: Built to work with Flarum `v0.1.0-beta.5`.
 
 # Flarum & Dataporten Docker Image
